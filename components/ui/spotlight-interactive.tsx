@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { motion, useSpring, useTransform, SpringOptions } from 'framer-motion';
@@ -8,12 +7,14 @@ type SpotlightProps = {
   className?: string;
   size?: number;
   springOptions?: SpringOptions;
+  theme?: 'dark' | 'light';
 };
 
 export function SpotlightInteractive({
   className,
   size = 400,
   springOptions = { bounce: 0 },
+  theme = 'dark'
 }: SpotlightProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -29,8 +30,6 @@ export function SpotlightInteractive({
     if (containerRef.current) {
       const parent = containerRef.current.parentElement;
       if (parent) {
-        // We do not force styles here as it might break layouts, 
-        // but it is recommended to have relative/overflow-hidden on parent
         setParentElement(parent);
       }
     }
@@ -67,8 +66,10 @@ export function SpotlightInteractive({
     <motion.div
       ref={containerRef}
       className={cn(
-        'pointer-events-none absolute rounded-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops),transparent_80%)] blur-3xl transition-opacity duration-500',
-        'from-blue-500/20 via-indigo-500/10 to-transparent',
+        'pointer-events-none absolute rounded-full blur-3xl transition-opacity duration-700',
+        theme === 'dark' 
+          ? 'bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops),transparent_80%)] from-blue-500/20 via-indigo-500/10 to-transparent' 
+          : 'bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops),transparent_80%)] from-indigo-500/15 via-purple-300/10 to-transparent',
         isHovered ? 'opacity-100' : 'opacity-0',
         className
       )}

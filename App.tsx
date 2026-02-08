@@ -2,40 +2,136 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { SplineSceneBasic } from './components/demo';
 import { SpotlightInteractive } from './components/ui/spotlight-interactive';
+import DisplayCards from './components/ui/display-cards';
+import { Sparkles, Code, Globe, Layers, Cpu, Zap, Shield, Music, Activity, Terminal, Sun, Moon } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "Working with Kaelen felt like seeing the future of design. Our product launch was a massive success thanks to the 3D vision.",
+    quote: "Working with Kaelen was like glimpsing the future of the web. Our conversion rates spiked after the 3D redesign.",
     author: "Alex Rivera",
     role: "Lead Creative @ Atmos",
     rating: 5
   },
   {
-    quote: "Kaelen's ability to visualize complex data in spatial dimensions is unparalleled. A true master of the modern web stack.",
+    quote: "Kaelen's ability to translate complex brand identities into spatial dimensions is unparalleled. A master of the stack.",
     author: "Sofia Chen",
     role: "CEO @ Radiant Labs",
     rating: 5
   },
   {
-    quote: "The spatial UI Kaelen built for us has set a new standard in our industry. It's not just a website; it's an experience.",
+    quote: "The spatial UI Kaelen built for us has set a new standard in our niche. It's not just a site; it's a statement.",
     author: "James Thorne",
     role: "Founder @ Echo spatial",
     rating: 5
   },
   {
-    quote: "Precision, creativity, and speed. Kaelen is the freelance partner you dream of finding for high-end digital work.",
+    quote: "Precise, creative, and insanely fast. Kaelen is the partner you need for high-end digital architecture.",
     author: "Mark S.",
     role: "Design Director @ Void",
     rating: 5
   }
 ];
 
+const worksCards = [
+  {
+    icon: <Globe className="size-5 text-indigo-500 dark:text-indigo-300" />,
+    title: "Aether Flux",
+    description: "Next-gen spatial interface for distributed network monitoring.",
+    date: "DEC 2023",
+    iconClassName: "bg-indigo-500/10",
+    titleClassName: "text-indigo-600 dark:text-indigo-400",
+    className: "[grid-area:stack] -translate-x-[150px] -translate-y-[150px] z-[1]",
+  },
+  {
+    icon: <Layers className="size-5 text-purple-500 dark:text-purple-300" />,
+    title: "Prism Protocol",
+    description: "Real-time WebGL identity visualization system.",
+    date: "OCT 2023",
+    iconClassName: "bg-purple-500/10",
+    titleClassName: "text-purple-600 dark:text-purple-400",
+    className: "[grid-area:stack] -translate-x-[120px] -translate-y-[120px] z-[2]",
+  },
+  {
+    icon: <Code className="size-5 text-blue-500 dark:text-blue-300" />,
+    title: "Onyx System",
+    description: "High-density 3D data visualization for enterprise metrics.",
+    date: "AUG 2023",
+    iconClassName: "bg-blue-500/10",
+    titleClassName: "text-blue-600 dark:text-blue-400",
+    className: "[grid-area:stack] -translate-x-[90px] -translate-y-[90px] z-[3]",
+  },
+  {
+    icon: <Cpu className="size-5 text-emerald-500 dark:text-emerald-300" />,
+    title: "Nebula OS",
+    description: "Conceptual operating system interface for spatial computing.",
+    date: "JULY 2023",
+    iconClassName: "bg-emerald-500/10",
+    titleClassName: "text-emerald-600 dark:text-emerald-400",
+    className: "[grid-area:stack] -translate-x-[60px] -translate-y-[60px] z-[4]",
+  },
+  {
+    icon: <Zap className="size-5 text-amber-500 dark:text-amber-300" />,
+    title: "Volt Core",
+    description: "High-performance animation engine for dynamic UI components.",
+    date: "MAY 2023",
+    iconClassName: "bg-amber-500/10",
+    titleClassName: "text-amber-600 dark:text-amber-400",
+    className: "[grid-area:stack] -translate-x-[30px] -translate-y-[30px] z-[5]",
+  },
+  {
+    icon: <Shield className="size-5 text-rose-500 dark:text-rose-300" />,
+    title: "Cyber Sentinel",
+    description: "Advanced threat detection dashboard with 3D link analysis.",
+    date: "MAR 2023",
+    iconClassName: "bg-rose-500/10",
+    titleClassName: "text-rose-600 dark:text-rose-400",
+    className: "[grid-area:stack] translate-x-[0px] translate-y-[0px] z-[6]",
+  },
+  {
+    icon: <Music className="size-5 text-sky-500 dark:text-sky-300" />,
+    title: "Nova Audio",
+    description: "Spatial audio mixing board built for the modern browser.",
+    date: "JAN 2023",
+    iconClassName: "bg-sky-500/10",
+    titleClassName: "text-sky-600 dark:text-sky-400",
+    className: "[grid-area:stack] translate-x-[30px] translate-y-[30px] z-[7]",
+  },
+  {
+    icon: <Activity className="size-5 text-lime-500 dark:text-lime-300" />,
+    title: "Pulse Health",
+    description: "Biometric monitoring suite with interactive health charts.",
+    date: "NOV 2022",
+    iconClassName: "bg-lime-500/10",
+    titleClassName: "text-lime-600 dark:text-lime-400",
+    className: "[grid-area:stack] translate-x-[60px] translate-y-[60px] z-[8]",
+  },
+  {
+    icon: <Terminal className="size-5 text-fuchsia-500 dark:text-fuchsia-300" />,
+    title: "Matrix SDK",
+    description: "Developer tools for building immersive VR web experiences.",
+    date: "SEPT 2022",
+    iconClassName: "bg-fuchsia-500/10",
+    titleClassName: "text-fuchsia-600 dark:text-fuchsia-400",
+    className: "[grid-area:stack] translate-x-[90px] translate-y-[90px] z-[9]",
+  },
+  {
+    icon: <Sparkles className="size-5 text-cyan-500 dark:text-cyan-300" />,
+    title: "Ether Forge",
+    description: "Generative art platform leveraging canvas-driven shaders.",
+    date: "JULY 2022",
+    iconClassName: "bg-cyan-500/10",
+    titleClassName: "text-cyan-600 dark:text-cyan-400",
+    className: "[grid-area:stack] translate-x-[120px] translate-y-[120px] z-[10]",
+  },
+];
+
 const fadeInVariant: Variants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 40, filter: 'blur(10px)' },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }
+    filter: 'blur(0px)',
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] as any }
   }
 };
 
@@ -44,48 +140,62 @@ const textContainer: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
+      staggerChildren: 0.08,
     }
   }
 };
 
 const textItem: Variants = {
-  hidden: { opacity: 0, y: 10 },
+  hidden: { opacity: 0, y: 15, filter: 'blur(5px)' },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
+    filter: 'blur(0px)',
+    transition: { duration: 0.6, ease: "easeOut" }
   }
 };
 
-const SectionBackground = () => (
+const SectionBackground = ({ theme }: { theme: 'dark' | 'light' }) => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
     <motion.div
       animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
       transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-500/5 rounded-full blur-[120px]"
+      className={`absolute top-1/4 -left-20 w-96 h-96 ${theme === 'dark' ? 'bg-indigo-500/5' : 'bg-indigo-500/10'} rounded-full blur-[120px] transition-colors duration-700`}
     />
     <motion.div
       animate={{ x: [0, -40, 0], y: [0, 60, 0] }}
       transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-purple-500/5 rounded-full blur-[150px]"
+      className={`absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] ${theme === 'dark' ? 'bg-purple-500/5' : 'bg-purple-500/10'} rounded-full blur-[150px] transition-colors duration-700`}
     />
     {[...Array(6)].map((_, i) => (
       <motion.div
         key={i}
-        initial={{ x: Math.random() * 100 + "%", y: Math.random() * 100 + "%", opacity: 0.1 + Math.random() * 0.1 }}
+        initial={{ x: Math.random() * 100 + "%", y: Math.random() * 100 + "%", opacity: theme === 'dark' ? 0.1 : 0.2 }}
         animate={{ y: ["-10%", "110%"], rotate: 360 }}
         transition={{ duration: 20 + Math.random() * 20, repeat: Infinity, ease: "linear", delay: -Math.random() * 20 }}
-        className="absolute w-1 h-1 bg-white rounded-full"
+        className={`absolute w-1 h-1 ${theme === 'dark' ? 'bg-white' : 'bg-neutral-800'} rounded-full transition-colors duration-700`}
         style={{ filter: 'blur(1px)' }}
       />
     ))}
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
+    <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]' : 'bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.4)_100%)]'} transition-colors duration-700`} />
   </div>
 );
 
+const AnimatedHeading = ({ text, className }: { text: string; className?: string }) => {
+  return (
+    <motion.h3 variants={textContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className={className}>
+      {text.split(" ").map((word, i) => (
+        <motion.span key={i} variants={textItem} className="inline-block mr-[0.3em]">
+          {word}
+        </motion.span>
+      ))}
+    </motion.h3>
+  );
+};
+
 export default function App() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -94,21 +204,25 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-white/20 overflow-x-hidden">
+    <div className={`min-h-screen transition-colors duration-700 ease-in-out ${theme === 'dark' ? 'bg-black text-white' : 'bg-slate-50 text-slate-900'} selection:bg-indigo-500/20 overflow-x-hidden`}>
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <SpotlightInteractive />
+        <SpotlightInteractive theme={theme} />
       </div>
 
       <header className="relative z-50 container mx-auto px-6 py-8 flex justify-between items-center">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-2">
-           <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
-             <div className="w-4 h-4 bg-black rotate-45" />
+           <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-slate-900'}`}>
+             <div className={`w-4 h-4 rotate-45 transition-colors duration-700 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`} />
            </div>
-           <span className="font-bold text-xl tracking-wider uppercase">Kaelen.Dev</span>
+           <span className="font-bold text-xl tracking-wider uppercase">KAELEN.DEV</span>
         </motion.div>
         
-        <nav className="hidden md:flex gap-8 text-sm font-medium text-neutral-400">
+        <nav className={`hidden md:flex gap-8 text-sm font-medium transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-400' : 'text-slate-500'}`}>
           {['Philosophy', 'Works', 'Testimonials', 'Contact'].map((item, i) => (
             <motion.a 
               key={item}
@@ -116,113 +230,109 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * (i + 1) }}
               href={`#${item.toLowerCase()}`} 
-              className="hover:text-white transition-colors"
+              className={`transition-colors hover:${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}
             >
               {item}
             </motion.a>
           ))}
         </nav>
 
-        <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-all text-sm font-medium border border-white/10">
-          Book a Session
-        </motion.button>
+        <div className="flex items-center gap-4">
+          <motion.button 
+            onClick={toggleTheme}
+            initial={{ opacity: 0, scale: 0.8 }} 
+            animate={{ opacity: 1, scale: 1 }}
+            className={`p-2.5 rounded-full border transition-all duration-700 ${theme === 'dark' ? 'bg-white/5 border-white/10 hover:bg-white/10 text-white' : 'bg-slate-100 border-slate-200 hover:bg-slate-200 text-slate-900'}`}
+          >
+            {theme === 'dark' ? <Sun className="size-5" /> : <Moon className="size-5" />}
+          </motion.button>
+          
+          <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className={`px-5 py-2.5 rounded-md transition-all duration-700 text-sm font-semibold border ${theme === 'dark' ? 'bg-white/10 border-white/10 hover:bg-white/20' : 'bg-slate-900 text-white border-slate-900 hover:bg-slate-800'}`}>
+            Book a Session
+          </motion.button>
+        </div>
       </header>
 
       <main className="relative z-10">
-        <motion.section initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] as any }} className="container mx-auto px-6 pt-4 pb-24">
-          <SplineSceneBasic />
+        <motion.section initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: "easeOut" }} className="container mx-auto px-6 pt-4 pb-24">
+          <SplineSceneBasic theme={theme} />
         </motion.section>
 
-        <motion.section id="philosophy" variants={fadeInVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="relative container mx-auto px-6 py-32 border-t border-neutral-900/50">
-          <SectionBackground />
+        <motion.section id="philosophy" variants={fadeInVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className={`relative container mx-auto px-6 py-32 border-t transition-colors duration-700 ${theme === 'dark' ? 'border-neutral-900/50' : 'border-slate-200'}`}>
+          <SectionBackground theme={theme} />
           <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8">
-            <motion.h2 variants={textItem} className="text-sm uppercase tracking-[0.3em] text-neutral-500 font-semibold italic">My Philosophy</motion.h2>
-            <motion.h3 variants={textContainer} className="text-4xl md:text-7xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-600">
-              {"Building immersive bridges between human & machine.".split(" ").map((word, i) => (
-                <motion.span key={i} variants={textItem} className="inline-block mr-3">{word}</motion.span>
-              ))}
+            <motion.h2 variants={textItem} className={`text-sm uppercase tracking-[0.3em] font-semibold italic transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-400'}`}>Digital Philosophy</motion.h2>
+            <motion.h3 
+              variants={textItem} 
+              className={`text-4xl md:text-7xl font-bold leading-tight transition-all duration-700 bg-clip-text text-transparent ${theme === 'dark' ? 'bg-gradient-to-b from-neutral-50 to-neutral-500' : 'bg-gradient-to-b from-slate-900 to-slate-500'}`}
+            >
+              Architecting fluid interfaces for the spatial web.
             </motion.h3>
-            <motion.p variants={textItem} className="text-xl text-neutral-400 leading-relaxed max-w-2xl mx-auto">
-              I don't just build websites; I design digital sculptures that respond to touch, sound, and sight. My goal is to make the internet feel tangible again.
+            <motion.p variants={textItem} className={`text-xl leading-relaxed max-w-2xl mx-auto transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-400' : 'text-slate-500'}`}>
+              I specialize in blurring the lines between static design and interactive art. My mission is to build digital environments that feel as alive as the ideas behind them.
             </motion.p>
           </div>
         </motion.section>
 
-        <motion.section variants={fadeInVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className="relative bg-neutral-950/50 py-20 border-y border-neutral-900">
-          <SectionBackground />
+        <motion.section variants={fadeInVariant} initial="hidden" whileInView="visible" viewport={{ once: true }} className={`relative py-20 border-y transition-colors duration-700 ${theme === 'dark' ? 'bg-neutral-950/50 border-neutral-900' : 'bg-slate-100 border-slate-200'}`}>
+          <SectionBackground theme={theme} />
           <div className="relative z-10 container mx-auto px-6">
-            <p className="text-center text-xs uppercase tracking-widest text-neutral-600 mb-12">I've partnered with visionary teams at</p>
-            <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
+            <p className={`text-center text-xs uppercase tracking-widest mb-12 italic transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-600' : 'text-slate-400'}`}>Collaborated with industry-leading brands</p>
+            <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
               {['RADIANT', 'ATMOS', 'ECHO', 'VOID', 'CYPHER'].map((brand) => (
-                <span key={brand} className="text-2xl md:text-3xl font-black tracking-tighter text-neutral-300 cursor-default">{brand}</span>
+                <span key={brand} className={`text-2xl md:text-3xl font-black tracking-tighter cursor-default transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-300' : 'text-slate-600'}`}>{brand}</span>
               ))}
             </div>
           </div>
         </motion.section>
 
         <motion.section id="works" variants={fadeInVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="relative container mx-auto px-6 py-32">
-          <SectionBackground />
+          <SectionBackground theme={theme} />
           <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
             <div className="space-y-4">
-              <h2 className="text-sm uppercase tracking-[0.3em] text-neutral-500 font-semibold">Selected Works</h2>
-              <h3 className="text-5xl font-bold italic">The Art of the Code</h3>
+              <h2 className={`text-sm uppercase tracking-[0.3em] font-semibold transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-400'}`}>Curation</h2>
+              <AnimatedHeading text="The Art of Motion" className={`text-5xl font-bold italic transition-colors duration-700 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`} />
             </div>
-            <p className="text-neutral-500 max-w-xs">A collection of experiments and commissioned pieces exploring spatial interfaces.</p>
+            <p className={`max-w-xs font-medium transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-500'}`}>A careful selection of high-fidelity projects pushing the limits of WebGL.</p>
           </div>
           
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              { title: "Aether Flux", category: "3D Interaction / Spatial UI", image: "https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Prism Protocol", category: "WebGL / Motion Identity", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Onyx System", category: "Data Architecture / 3D", image: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1200&auto=format&fit=crop" },
-              { title: "Velvet UI", category: "Micro-Interactions / iOS", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop" }
-            ].map((work, idx) => (
-              <motion.div key={idx} whileHover={{ y: -10 }} transition={{ duration: 0.4 }} className="group relative overflow-hidden rounded-3xl bg-neutral-900 border border-neutral-800">
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img src={work.image} alt={work.title} className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" />
-                </div>
-                <div className="p-8 space-y-2">
-                  <span className="text-xs text-neutral-500 font-mono">{work.category}</span>
-                  <h4 className="text-2xl font-bold">{work.title}</h4>
-                </div>
-                <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity bg-white text-black p-3 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                </div>
-              </motion.div>
-            ))}
+          <div className="relative z-10 py-10 overflow-visible">
+            <div className="flex justify-center items-center">
+              <DisplayCards cards={worksCards} theme={theme} />
+            </div>
           </div>
         </motion.section>
 
         <motion.section id="testimonials" variants={fadeInVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="relative py-32 container mx-auto px-6 overflow-hidden">
-          <SectionBackground />
+          <SectionBackground theme={theme} />
           <div className="relative z-10 max-w-4xl mx-auto text-center mb-16 space-y-4">
-            <h2 className="text-sm uppercase tracking-[0.3em] text-neutral-500 font-semibold italic">Partners</h2>
-            <h3 className="text-5xl md:text-7xl font-black tracking-tighter">Voices of Collaboration.</h3>
+            <h2 className={`text-sm uppercase tracking-[0.3em] font-semibold italic transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-400'}`}>Client Feedback</h2>
+            <AnimatedHeading text="Words of Trust" className={`text-5xl md:text-7xl font-black tracking-tighter transition-colors duration-700 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`} />
           </div>
 
           <div className="relative z-10 h-[450px] md:h-[350px] max-w-5xl mx-auto">
             <AnimatePresence mode="wait">
               <motion.div
-                key={activeTestimonial}
-                initial={{ opacity: 0, x: 50, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
-                transition={{ duration: 0.6, ease: "circOut" }}
-                className="absolute inset-0 flex flex-col items-center justify-center p-8 md:p-12 rounded-[2.5rem] bg-neutral-900/40 backdrop-blur-xl border border-white/5 shadow-2xl text-center"
+                key={activeTestimonial + theme}
+                initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as any }}
+                className={`absolute inset-0 flex flex-col items-center justify-center p-8 md:p-12 rounded-[3rem] backdrop-blur-2xl border shadow-3xl text-center transition-all duration-700 ${theme === 'dark' ? 'bg-neutral-900/50 border-white/5' : 'bg-white border-slate-200 shadow-slate-200'}`}
               >
-                <div className="flex gap-1 mb-8">
+                <div className="flex gap-1.5 mb-8">
                   {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-indigo-400 fill-current" viewBox="0 0 20 20">
+                    <svg key={i} className={`w-5 h-5 fill-current transition-colors duration-700 ${theme === 'dark' ? 'text-indigo-400' : 'text-indigo-500'}`} viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                 </div>
-                <p className="text-2xl md:text-4xl font-medium leading-tight text-neutral-200 italic mb-8">
+                <p className={`text-2xl md:text-4xl font-medium leading-tight italic mb-8 max-w-3xl transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-200' : 'text-slate-800'}`}>
                   "{testimonials[activeTestimonial].quote}"
                 </p>
-                <div className="flex flex-col items-center gap-1">
-                  <p className="text-xl font-bold tracking-tight text-white">{testimonials[activeTestimonial].author}</p>
-                  <p className="text-neutral-500 font-mono text-sm uppercase">{testimonials[activeTestimonial].role}</p>
+                <div className="flex flex-col items-center gap-1.5">
+                  <p className={`text-xl font-bold tracking-tight transition-colors duration-700 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{testimonials[activeTestimonial].author}</p>
+                  <p className={`font-mono text-sm uppercase tracking-widest transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-400'}`}>{testimonials[activeTestimonial].role}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -230,46 +340,48 @@ export default function App() {
 
           <div className="relative z-10 flex justify-center gap-4 mt-12">
             {testimonials.map((_, idx) => (
-              <button key={idx} onClick={() => setActiveTestimonial(idx)} className={`h-1.5 transition-all duration-500 rounded-full ${activeTestimonial === idx ? 'w-12 bg-white' : 'w-4 bg-neutral-800 hover:bg-neutral-600'}`} />
+              <button key={idx} onClick={() => setActiveTestimonial(idx)} className={`h-1.5 transition-all duration-700 rounded-full ${activeTestimonial === idx ? 'w-14 bg-indigo-500' : (theme === 'dark' ? 'w-4 bg-neutral-800 hover:bg-neutral-600' : 'w-4 bg-slate-300 hover:bg-slate-400')}`} />
             ))}
           </div>
         </motion.section>
 
         <motion.section id="contact" variants={fadeInVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="relative container mx-auto px-6 py-40">
-          <SectionBackground />
-          <div className="relative z-10 overflow-hidden rounded-[3rem] bg-neutral-900 border border-neutral-800 p-12 md:p-24 flex flex-col items-center text-center space-y-10">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-pink-500/10 opacity-50" />
-            <h2 className="relative z-10 text-5xl md:text-8xl font-black tracking-tighter max-w-4xl leading-[0.9]">
-              LET'S BUILD SOMETHING EXTRAORDINARY.
-            </h2>
-            <p className="relative z-10 text-xl text-neutral-400 max-w-xl mx-auto">
-              I am currently taking on new projects for Q3 and Q4. Let's discuss your vision.
+          <SectionBackground theme={theme} />
+          <div className={`relative z-10 overflow-hidden rounded-[4rem] border p-12 md:p-28 flex flex-col items-center text-center space-y-12 transition-all duration-700 ${theme === 'dark' ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-slate-200 shadow-2xl shadow-slate-200'}`}>
+            <div className={`absolute inset-0 bg-gradient-to-br transition-opacity duration-700 ${theme === 'dark' ? 'from-indigo-500/15 via-transparent to-purple-500/15 opacity-60' : 'from-indigo-100 via-transparent to-purple-100 opacity-40'}`} />
+            <AnimatedHeading 
+              text="LET'S CRAFT SOMETHING ICONIC TOGETHER." 
+              className={`relative z-10 text-5xl md:text-8xl font-black tracking-tighter max-w-5xl leading-[0.85] transition-colors duration-700 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}
+            />
+            <p className={`relative z-10 text-xl max-w-2xl mx-auto font-medium transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-400' : 'text-slate-500'}`}>
+              Accepting high-impact projects for the upcoming quarter. Let's explore how we can elevate your digital presence.
             </p>
-            <div className="relative z-10 flex flex-col md:flex-row gap-4 w-full justify-center">
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-white text-black text-xl font-bold py-6 px-12 rounded-full hover:bg-neutral-200 transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
-                Start a Conversation
+            <div className="relative z-10 flex flex-col md:flex-row gap-5 w-full justify-center">
+              <motion.button whileHover={{ scale: 1.04, y: -4 }} whileTap={{ scale: 0.98 }} className={`text-xl font-bold py-6 px-14 rounded-full transition-all shadow-2xl ${theme === 'dark' ? 'bg-white text-black hover:bg-neutral-100' : 'bg-slate-900 text-white hover:bg-slate-800'}`}>
+                Initialize Consultation
               </motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-transparent border border-neutral-700 text-white text-xl font-bold py-6 px-12 rounded-full hover:bg-neutral-800 transition-all">
-                Download CV
+              <motion.button whileHover={{ scale: 1.04, y: -4 }} whileTap={{ scale: 0.98 }} className={`text-xl font-bold py-6 px-14 rounded-full border transition-all ${theme === 'dark' ? 'bg-transparent border-neutral-700 text-white hover:bg-neutral-800' : 'bg-transparent border-slate-300 text-slate-600 hover:bg-slate-100'}`}>
+                Download Portfolio
               </motion.button>
             </div>
           </div>
         </motion.section>
       </main>
 
-      <footer className="relative z-10 border-t border-neutral-900 mt-24 py-12">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-neutral-800 flex items-center justify-center">
-              <div className="w-3 h-3 bg-white rotate-45" />
+      <footer className={`relative z-10 border-t mt-24 py-16 transition-colors duration-700 ${theme === 'dark' ? 'border-neutral-900' : 'border-slate-200'}`}>
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
+          <div className="flex items-center gap-3">
+            <div className={`w-7 h-7 rounded flex items-center justify-center transition-colors duration-700 ${theme === 'dark' ? 'bg-neutral-800' : 'bg-slate-200'}`}>
+              <div className={`w-3.5 h-3.5 rotate-45 transition-colors duration-700 ${theme === 'dark' ? 'bg-white' : 'bg-slate-900'}`} />
             </div>
-            <span className="font-bold uppercase tracking-widest text-sm">Kaelen Vane</span>
+            <span className={`font-bold uppercase tracking-[0.2em] text-sm transition-colors duration-700 ${theme === 'dark' ? 'text-white' : 'text-slate-700'}`}>KAELEN VANE © 2024</span>
           </div>
-          <p className="text-neutral-500 text-sm">&copy; 2024 Kaelen Vane. Built with code & emotion.</p>
-          <div className="flex gap-8 text-sm font-medium text-neutral-500">
-             <a href="#" className="hover:text-white transition-colors">Twitter</a>
-             <a href="#" className="hover:text-white transition-colors">GitHub</a>
-             <a href="#" className="hover:text-white transition-colors">Dribbble</a>
+          <p className={`text-sm font-medium italic transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-400'}`}>Crafted with intentionality & code.</p>
+          <div className={`flex gap-10 text-sm font-bold tracking-widest uppercase transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-400'}`}>
+             <a href="#" className={`transition-colors hover:${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>X</a>
+             <a href="#" className={`transition-colors hover:${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>GH</a>
+             <a href="#" className={`transition-colors hover:${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>DR</a>
+             <a href="#" className={`transition-colors hover:${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>LI</a>
           </div>
         </div>
       </footer>
