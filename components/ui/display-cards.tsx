@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -13,6 +14,7 @@ interface DisplayCardProps {
   iconClassName?: string;
   titleClassName?: string;
   theme?: 'dark' | 'light';
+  skewClassName?: string;
 }
 
 const TypewriterText = ({ text, active }: { text: string; active: boolean }) => {
@@ -37,7 +39,7 @@ const TypewriterText = ({ text, active }: { text: string; active: boolean }) => 
   return <span className="inline-block">{displayedText}</span>;
 };
 
-function DisplayCard({
+const DisplayCard: React.FC<DisplayCardProps> = ({
   className,
   icon = <Sparkles className="size-4 text-blue-300" />,
   title = "Featured",
@@ -45,8 +47,9 @@ function DisplayCard({
   date = "Just now",
   iconClassName = "text-blue-500",
   titleClassName = "text-blue-500",
-  theme = 'dark'
-}: DisplayCardProps) {
+  theme = 'dark',
+  skewClassName = "-skew-y-[4deg]"
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -62,7 +65,8 @@ function DisplayCard({
       {/* The actual visual card that moves */}
       <div
         className={cn(
-          "flex h-44 w-[26rem] -skew-y-[4deg] flex-col justify-between rounded-2xl border backdrop-blur-xl px-6 py-5 transition-all duration-500 ease-out",
+          "flex h-44 w-[26rem] flex-col justify-between rounded-2xl border backdrop-blur-xl px-6 py-5 transition-all duration-500 ease-out",
+          skewClassName,
           theme === 'dark' 
             ? "bg-neutral-900/90 border-white/10" 
             : "bg-white border-slate-200 shadow-sm",
@@ -122,7 +126,7 @@ interface DisplayCardsProps {
 
 export default function DisplayCards({ cards, theme = 'dark' }: DisplayCardsProps) {
   return (
-    <div className="relative h-[650px] w-full flex items-center justify-center perspective-[2000px]">
+    <div className="relative h-[500px] w-[26rem] flex items-center justify-center perspective-[2000px]">
         <div className="grid [grid-template-areas:'stack'] place-items-center opacity-100 animate-in fade-in-0 duration-1000">
             {cards?.map((cardProps, index) => (
                 <DisplayCard key={index} {...cardProps} theme={theme} />

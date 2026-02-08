@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { SplineSceneBasic } from './components/demo';
@@ -32,7 +33,7 @@ const testimonials = [
   }
 ];
 
-const worksCards = [
+const leftStackCards = [
   {
     icon: <Globe className="size-5 text-indigo-500 dark:text-indigo-300" />,
     title: "Aether Flux",
@@ -40,7 +41,8 @@ const worksCards = [
     date: "DEC 2023",
     iconClassName: "bg-indigo-500/10",
     titleClassName: "text-indigo-600 dark:text-indigo-400",
-    className: "[grid-area:stack] -translate-x-[150px] -translate-y-[150px] z-[1]",
+    className: "[grid-area:stack] -translate-x-[90px] -translate-y-[90px] z-[1]",
+    skewClassName: "-skew-y-[4deg]"
   },
   {
     icon: <Layers className="size-5 text-purple-500 dark:text-purple-300" />,
@@ -49,7 +51,8 @@ const worksCards = [
     date: "OCT 2023",
     iconClassName: "bg-purple-500/10",
     titleClassName: "text-purple-600 dark:text-purple-400",
-    className: "[grid-area:stack] -translate-x-[120px] -translate-y-[120px] z-[2]",
+    className: "[grid-area:stack] -translate-x-[60px] -translate-y-[60px] z-[2]",
+    skewClassName: "-skew-y-[4deg]"
   },
   {
     icon: <Code className="size-5 text-blue-500 dark:text-blue-300" />,
@@ -58,7 +61,8 @@ const worksCards = [
     date: "AUG 2023",
     iconClassName: "bg-blue-500/10",
     titleClassName: "text-blue-600 dark:text-blue-400",
-    className: "[grid-area:stack] -translate-x-[90px] -translate-y-[90px] z-[3]",
+    className: "[grid-area:stack] -translate-x-[30px] -translate-y-[30px] z-[3]",
+    skewClassName: "-skew-y-[4deg]"
   },
   {
     icon: <Cpu className="size-5 text-emerald-500 dark:text-emerald-300" />,
@@ -67,8 +71,12 @@ const worksCards = [
     date: "JULY 2023",
     iconClassName: "bg-emerald-500/10",
     titleClassName: "text-emerald-600 dark:text-emerald-400",
-    className: "[grid-area:stack] -translate-x-[60px] -translate-y-[60px] z-[4]",
+    className: "[grid-area:stack] translate-x-[0px] translate-y-[0px] z-[4]",
+    skewClassName: "-skew-y-[4deg]"
   },
+];
+
+const rightStackCards = [
   {
     icon: <Zap className="size-5 text-amber-500 dark:text-amber-300" />,
     title: "Volt Core",
@@ -76,7 +84,8 @@ const worksCards = [
     date: "MAY 2023",
     iconClassName: "bg-amber-500/10",
     titleClassName: "text-amber-600 dark:text-amber-400",
-    className: "[grid-area:stack] -translate-x-[30px] -translate-y-[30px] z-[5]",
+    className: "[grid-area:stack] translate-x-[90px] -translate-y-[90px] z-[1]",
+    skewClassName: "skew-y-[4deg]"
   },
   {
     icon: <Shield className="size-5 text-rose-500 dark:text-rose-300" />,
@@ -85,7 +94,8 @@ const worksCards = [
     date: "MAR 2023",
     iconClassName: "bg-rose-500/10",
     titleClassName: "text-rose-600 dark:text-rose-400",
-    className: "[grid-area:stack] translate-x-[0px] translate-y-[0px] z-[6]",
+    className: "[grid-area:stack] translate-x-[60px] -translate-y-[60px] z-[2]",
+    skewClassName: "skew-y-[4deg]"
   },
   {
     icon: <Music className="size-5 text-sky-500 dark:text-sky-300" />,
@@ -94,7 +104,8 @@ const worksCards = [
     date: "JAN 2023",
     iconClassName: "bg-sky-500/10",
     titleClassName: "text-sky-600 dark:text-sky-400",
-    className: "[grid-area:stack] translate-x-[30px] translate-y-[30px] z-[7]",
+    className: "[grid-area:stack] translate-x-[30px] -translate-y-[30px] z-[3]",
+    skewClassName: "skew-y-[4deg]"
   },
   {
     icon: <Activity className="size-5 text-lime-500 dark:text-lime-300" />,
@@ -103,25 +114,8 @@ const worksCards = [
     date: "NOV 2022",
     iconClassName: "bg-lime-500/10",
     titleClassName: "text-lime-600 dark:text-lime-400",
-    className: "[grid-area:stack] translate-x-[60px] translate-y-[60px] z-[8]",
-  },
-  {
-    icon: <Terminal className="size-5 text-fuchsia-500 dark:text-fuchsia-300" />,
-    title: "Matrix SDK",
-    description: "Developer tools for building immersive VR web experiences.",
-    date: "SEPT 2022",
-    iconClassName: "bg-fuchsia-500/10",
-    titleClassName: "text-fuchsia-600 dark:text-fuchsia-400",
-    className: "[grid-area:stack] translate-x-[90px] translate-y-[90px] z-[9]",
-  },
-  {
-    icon: <Sparkles className="size-5 text-cyan-500 dark:text-cyan-300" />,
-    title: "Ether Forge",
-    description: "Generative art platform leveraging canvas-driven shaders.",
-    date: "JULY 2022",
-    iconClassName: "bg-cyan-500/10",
-    titleClassName: "text-cyan-600 dark:text-cyan-400",
-    className: "[grid-area:stack] translate-x-[120px] translate-y-[120px] z-[10]",
+    className: "[grid-area:stack] translate-x-[0px] translate-y-[0px] z-[4]",
+    skewClassName: "skew-y-[4deg]"
   },
 ];
 
@@ -291,14 +285,20 @@ export default function App() {
           <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
             <div className="space-y-4">
               <h2 className={`text-sm uppercase tracking-[0.3em] font-semibold transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-400'}`}>Curation</h2>
-              <AnimatedHeading text="The Art of Motion" className={`text-5xl font-bold italic transition-colors duration-700 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`} />
+              <motion.h3 
+                variants={textItem} 
+                className={`text-5xl font-bold italic transition-all duration-700 bg-clip-text text-transparent ${theme === 'dark' ? 'bg-gradient-to-b from-neutral-50 to-neutral-500' : 'bg-gradient-to-b from-slate-900 to-slate-500'}`}
+              >
+                The Art of Motion
+              </motion.h3>
             </div>
             <p className={`max-w-xs font-medium transition-colors duration-700 ${theme === 'dark' ? 'text-neutral-500' : 'text-slate-500'}`}>A careful selection of high-fidelity projects pushing the limits of WebGL.</p>
           </div>
           
           <div className="relative z-10 py-10 overflow-visible">
-            <div className="flex justify-center items-center">
-              <DisplayCards cards={worksCards} theme={theme} />
+            <div className="flex flex-col md:flex-row justify-center items-center gap-24 md:gap-40 lg:gap-56 w-full">
+              <DisplayCards cards={leftStackCards} theme={theme} />
+              <DisplayCards cards={rightStackCards} theme={theme} />
             </div>
           </div>
         </motion.section>
