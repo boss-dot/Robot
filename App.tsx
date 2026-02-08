@@ -1,4 +1,4 @@
-
+{/* deploy-check */}
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { SplineSceneBasic } from './components/demo';
